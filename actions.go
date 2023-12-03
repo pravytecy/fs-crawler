@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"path/filepath"
 )
@@ -22,7 +23,10 @@ func listFile(path string, out io.Writer) error {
 	return err
 }
 
-func delete(path string) error {
-	err := os.Remove(path)
-	return err
+func delete(path string, delLogger *log.Logger) error {
+	if err := os.Remove(path); err != nil {
+		return err
+	}
+	delLogger.Println(path)
+	return nil
 }
